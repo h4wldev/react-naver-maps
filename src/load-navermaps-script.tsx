@@ -28,14 +28,13 @@ export function loadNavermapsScript(options: ClientOptions) {
 
 function makeUrl(options: ClientOptions) {
   const submodules = options.submodules;
+  let clientIdQuery: string | null = null;
 
-  const clientIdQuery = 'ncpClientId' in options
-    ? `ncpClientId=${options.ncpClientId}`
-    : 'govClientId' in options
-      ? `govClientId=${options.govClientId}`
-      : 'finClientId' in options
-        ? `finClientId=${options.finClientId}`
-        : undefined;
+  ['ncpClientId', 'ncpKeyId', 'govClientId', 'finClientId'].forEach(key => {
+    if (key in options) {
+      clientIdQuery = `${key}=${options[key as keyof ClientOptions]}`;
+    }
+  });
 
   if (!clientIdQuery) {
     throw new Error('react-naver-maps: ncpClientId, govClientId or finClientId is required');

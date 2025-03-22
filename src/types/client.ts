@@ -1,10 +1,10 @@
-
 export type NcpOptions = {
   submodules?: string[];
   /**
    * ncpClientId, govClientId, finClientId 중 선택
    */
-  ncpClientId: string;
+  ncpClientId?: string;
+  ncpKeyId?: string;
 };
 
 export type GovOptions = {
